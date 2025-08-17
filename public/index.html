@@ -1,108 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zark | NGL Spammer</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
-    <link rel="icon" href="icon.jpeg" type="image/svg+xml">
-    <meta name="description" content="Spam message on ngl user. Made for fun only.">
-    <meta property="og:image" content="https://i.ibb.co/8m0Y8nJ/449218688.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
- <style>
-   @import url('https://fonts.googleapis.com/css?family=Audiowide:400,700&display=swap');
-   
-   
-      #footer {
-  background-color: black;
-  color: white;
-  padding: 12px;
-  position: fixed;
-  text-align: center;
-  bottom: 0;
-  left: -10px;
-  width: 100%;
-  font-size: 12px;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zark Spam Share</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
+        }
 
-   .header-text{
-    font-size: 25px;
-    font-weight: 600;
-    font-family: 'Audiowide', sans-serif;
-    
-}
-/* Header title animation start */
-.animate-text
-{
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.3); !important;
-  text-transform: ;
-  background: #EC1187 linear-gradient(to bottom right, #EC1187 0%, #FF8D10 100%);
-  background-size: auto auto;
-  background-clip: border-box;
-  background-size: 200% auto;
-  color: #fff;
-  background-clip: text;
-  text-fill-color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: textclip 5s linear infinite;
-  display: inline-block;
-}
-@keyframes textclip {
-  to {
-    background-position: 200% center;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: var(--light);
+            min-height: 100vh;
+            padding: 1rem;
+            line-height: 1.5;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .owner {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #334155;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+            background-color: #1e293b;
+            color: var(--light);
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .result {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .result.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            display: block;
+        }
+
+        .result.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            display: block;
+        }
+
+        .process-item {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid #334155;
+            font-size: 0.875rem;
+        }
+
+        .process-item .status {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+
+        .process-item .progress {
+            height: 6px;
+            background-color: #334155;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .process-item .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        @media (max-width: 640px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 0.875rem;
+            }
+            
+            .card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Animation for buttons */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
     </style>
-   </head>
-  <body>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script
-    <script>       
-        Swal.fire({
-          title: "Hello there! 👋",
-          text: "Spam message on NGL user. Made for fun only.",
-          imageUrl: "https://i.ibb.co/CHgD8K0/436153674.jpg",
-          imageWidth: 300,
-          imageHeight: 120,
-          imageAlt: "Zark",
-        });
-      </script>
-    <main>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="logo">Zark Spam Share</h1>
+            <p class="subtitle">Automate Facebook post sharing using your browser's cookies</p>
+            <p class="owner">Created by Zark</p>
+        </header>
 
-     <div class="container">
-    <h2 style="padding: 15px; border: 1.0px solid #fff; border-radius: 10px;"><center><div class="header-text animate-text">NGL SPAMMER</div></h2>
-  
-      
-      <div id="total-sent-container">
-        <p><strong>Tries: &nbsp;</strong></p><p id="total-req">0</p><p><strong>&nbsp;Sent:&nbsp;</strong></p><p id="total-sent">0</p>
-      </div>
-      <div id="container">
-        <div id="container-header">
-          @
-          <textarea id="username" placeholder="Username target..."></textarea>
+        <div class="card">
+            <h2 class="card-title">Share Configuration</h2>
+            <form onsubmit="submitForm(event)" class="form-container">
+                <div class="form-group">
+                    <label for="cookies" class="form-label">APPSTATE:</label>
+                    <input type="text" id="cookies" name="cookie" class="form-input" placeholder="Enter your Facebook cookie">
+                </div>
+                <div class="form-group">
+                    <label for="urls" class="form-label">Post URL:</label>
+                    <input type="text" id="urls" name="url" class="form-input" placeholder="Enter Facebook post URL">
+                </div>
+                <div class="form-group">
+                    <label for="amounts" class="form-label">Share Limit:</label>
+                    <input type="number" id="amounts" name="amount" class="form-input" placeholder="Number of shares">
+                </div>
+                <div class="form-group">
+                    <label for="intervals" class="form-label">Delay (ms):</label>
+                    <input type="number" id="intervals" name="interval" class="form-input" placeholder="Delay between shares">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-pulse" id="submit-button">Start Sharing</button>
+                </div>
+                <div id="result" class="result"></div>
+            </form>
         </div>
-        <div id="message-container">
-          <textarea id="message" placeholder="Enter your message..."></textarea>
-          <div class="random" id="random">🎲</div>
+
+        <div class="card" id="process-container">
+            <h2 class="card-title">Active Processes</h2>
+            <div id="processing"></div>
         </div>
-      </div>
-      <div id="response-container">
-        <p id="response"></p>
-      </div>
-      <div id="send-button-container">
-        <button id="send-button">Spam Now!</button>
-      </div>
-      <br>
-      <div style="color: white" id="userName">
-        Note: This tool is free, don't abuse or else i will suspend it.
-      </div>
-      <br>
-      <div id="footer">
-        &copy; 2025 Hosted by <a href="" style="text-decoration: none; color: orange;">Kaizenji</a> | For educational purposes only. No infringement intended.
-      </div>
-    </main>       
-  </body>
-</html>
+    </div>
+
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            const result = document.getElementById('result');
+            const button = document.getElementById('submit-button');
+            
+            try {
+                result.style.display = 'none';
+                button.disabled = true;
+                button.textContent = 'Processing...';
+                
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        cookie: document.getElementById('cookies').value,
+                        url: document.getElementById('urls').value,
+                        amount: document.getElementById('amounts').value,
+                        interval: document.getElementById('intervals').value,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                const data = await response.json();
+                
+                result.className = 'result';
+                result.style.display = 'block';
+                
+                if (data.status === 200) {
+                    result.classList.add('success');
+                    result.textContent = 'Sharing process started successfully!';
+                } else {
+                    result.classList.add('error');
+                    result.textContent = 'Error: ' + (data.error || 'Failed to start sharing');
+                }
+                
+                // Refresh the process list
+                linkOfProcessing();
+            } catch (e) {
+                console.error(e);
+                result.className = 'result error';
+                result.style.display = 'block';
+                result.textContent = 'Network error occurred. Please try again.';
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Start Sharing';
+            }
+        }
+        
+        async function linkOfProcessing() {
+            try {
+                const container = document.getElementById('processing');
+                const processContainer = document.getElementById('process-container');
+                const initialResponse = await fetch('/total');
+                
+                if (!initialResponse.ok) {
+                    throw new Error(`Failed to fetch: ${initialResponse.status}`);
+                }
+                
+                const initialData = await initialResponse.json();
+                container.innerHTML = '';
+                
+                if (initialData.length === 0) {
+                    const emptyMsg = document.createElement('div');
+                    emptyMsg.className = 'process-item';
+                    emptyMsg.textContent = 'No active sharing processes';
+                    container.appendChild(emptyMsg);
+                    return;
+                }
+                
+                initialData.forEach((link, index) => {
+                    const { url, count, id, target, session } = link;
+                    const progress = Math.min(Math.floor((count / target) * 100), 100);
+                    
+                    const processCard = document.createElement('div');
+                    processCard.className = 'process-item';
+                    
+                    const statusDiv = document.createElement('div');
+                    statusDiv.className = 'status';
+                    
+                    const idSpan = document.createElement('span');
+                    idSpan.textContent = `ID: ${id}`;
+                    
+                    const progressText = document.createElement('span');
+                    progressText.textContent = `${count}/${target} (${progress}%)`;
+                    
+                    statusDiv.appendChild(idSpan);
+                    statusDiv.appendChild(progressText);
+                    
+                    const progressBar = document.createElement('div');
+                    progressBar.className = 'progress';
+                    
+                    const progressBarFill = document.createElement('div');
+                    progressBarFill.className = 'progress-bar';
+                    progressBarFill.style.width = `${progress}%`;
+                    
+                    progressBar.appendChild(progressBarFill);
+                    
+                    processCard.appendChild(statusDiv);
+                    processCard.appendChild(progressBar);
+                    
+                    container.appendChild(processCard);
+                    
+                    // Set up periodic updates
+                    const intervalId = setInterval(async () => {
+                        const updateResponse = await fetch('/total');
+                        
+                        if (!updateResponse.ok) return;
+                        
+                        const updateData = await updateResponse.json();
+                        const updatedLink = updateData.find((link) => link.session === session);
+                        
+                        if (updatedLink) {
+                            const { count } = updatedLink;
+                            const newProgress = Math.min(Math.floor((count / target) * 100), 100);
+                            progressText.textContent = `${count}/${target} (${newProgress}%)`;
+                            progressBarFill.style.width = `${newProgress}%`;
+                            
+                            if (count >= target) {
+                                clearInterval(intervalId);
+                            }
+                        }
+                    }, 2000);
+                });
+                
+            } catch (error) {
+                console.error('Error fetching processes:', error);
+            }
+        }
+        
+        // Initial load of processes
+        document.addEventListener('DOMContentLoaded', () => {
+            linkOfProcessing();
+        });
+    </script>
+</body>
+    </html>
