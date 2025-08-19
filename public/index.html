@@ -1,165 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FREE TEXT PH</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    body {
-      font-family: 'Noto Sans Math', sans-serif;
-      background: radial-gradient(ellipse at bottom, #0d1d31 0%, #000000 100%);
-      overflow-x: hidden;
-    }
-    svg text {
-      text-transform: uppercase;
-      font-size: 2rem;
-      font-family: 'Noto Sans Math', sans-serif;
-      fill: none;
-      stroke: white;
-      stroke-width: 4;
-      stroke-dasharray: 0 50%;
-      animation: stroke 5s infinite alternate;
-    }
-    @keyframes stroke {
-      0% { stroke: white; stroke-width: 0; stroke-dashoffset: 25%; stroke-dasharray: 0 50%; }
-      70% { stroke: white; }
-      80% { stroke: white; stroke-width: 3; }
-      100% { stroke: white; stroke-width: 0; stroke-dashoffset: -25%; stroke-dasharray: 50% 0; }
-    }
-    .shooting-stars {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    }
-    .shooting-stars div {
-      position: absolute; width: 2px; height: 80px;
-      background: linear-gradient(-45deg, white, transparent);
-      opacity: 0.8; animation: shoot 2s linear infinite;
-    }
-    @keyframes shoot {
-      0% { transform: translateX(0) translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateX(-800px) translateY(800px) rotate(45deg); opacity: 0; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zark Dev's Profile</title>
+    <style>
+        :root {
+            --cyber-orange: #FF5F00;
+            --cyber-dark: #121212;
+            --cyber-light: #1E1E1E;
+            --cyber-text: #E0E0E0;
+            --cyber-accent: #FF9E00;
+            --primary-gradient: linear-gradient(135deg, #FF5F00 0%, #FF9E00 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--cyber-dark);
+            color: var(--cyber-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cyber-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            gap: 2rem;
+        }
+
+        .loading-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--primary-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(255, 95, 0, 0.3);
+        }
+
+        .loading-logo-inner {
+            width: 60%;
+            height: 60%;
+            background-color: white;
+            border-radius: 12px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 0.5rem;
+            animation: fadeIn 1.4s ease-out;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .loading-percentage {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Courier New', monospace;
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .dot:nth-child(1) { animation: pulse 1.5s infinite; }
+        .dot:nth-child(2) { animation: pulse 1.5s infinite 0.2s; }
+        .dot:nth-child(3) { animation: pulse 1.5s infinite 0.4s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: var(--cyber-light);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(255, 95, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--cyber-orange);
+            margin: 20px 0;
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: var(--cyber-orange);
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .menu-btn:hover, .menu-btn:focus {
+            transform: scale(1.2);
+            background-color: rgba(255, 95, 0, 0.1);
+            outline: none;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--cyber-orange);
+            box-shadow: 0 0 20px rgba(255, 95, 0, 0.5);
+            animation: rotate 20s linear infinite;
+            transition: transform 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .name {
+            font-size: 2.2rem;
+            color: var(--cyber-orange);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 95, 0, 0.5);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .about {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .about h2 {
+            color: var(--cyber-accent);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .typing-text {
+            min-height: 80px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            border-left: 3px solid var(--cyber-orange);
+            padding-left: 15px;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .messenger-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--cyber-orange);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            display: none;
+        }
+
+        .messenger-icon:hover, .messenger-icon:focus {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 95, 0, 0.6);
+            outline: none;
+        }
+
+        .messenger-icon img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--cyber-light);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: right 0.3s ease;
+            padding: 20px;
+            border-left: 2px solid var(--cyber-orange);
+            display: none;
+        }
+
+        .menu.active {
+            right: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: none;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--cyber-orange);
+        }
+
+        .menu-title {
+            color: var(--cyber-orange);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--cyber-orange);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(255, 95, 0, 0.1);
+        }
+
+        .menu-items {
+            list-style: none;
+        }
+
+        .menu-items li {
+            margin-bottom: 15px;
+        }
+
+        .menu-items a {
+            color: var(--cyber-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: block;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-items a:hover, .menu-items a:focus {
+            color: var(--cyber-orange);
+            background-color: rgba(255, 95, 0, 0.1);
+            border-left: 3px solid var(--cyber-orange);
+            padding-left: 15px;
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .typing-text {
+                font-size: 1rem;
+            }
+
+            .menu {
+                width: 85%;
+            }
+
+            .messenger-icon {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+<body>
+    <div class="loading-screen">
+        <div class="loading-logo">
+            <div class="loading-logo-inner"></div>
+        </div>
+        
+        <h1 class="loading-text">System Initializing</h1>
+        <p class="loading-subtext">Preparing your experience</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        
+        <div class="loading-percentage" id="loading-percentage">0%</div>
+    </div>
 
-  <div class="shooting-stars">
-    <div style="top:10%;left:80%;animation-delay:0s;"></div>
-    <div style="top:30%;left:60%;animation-delay:1s;"></div>
-    <div style="top:50%;left:90%;animation-delay:2s;"></div>
-    <div style="top:70%;left:40%;animation-delay:0.5s;"></div>
-    <div style="top:85%;left:20%;animation-delay:1.5s;"></div>
-  </div>
+    <audio id="background-music" src="14-silent.mp3" loop autoplay style="display:none"></audio>
+    <div class="container">
+        <div class="header">
+            <button class="menu-btn" aria-label="Open menu">☰</button>
+        </div>
 
-  <main class="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 shadow-2xl p-6 animate-fadeIn">
-    
-    <header class="text-center mb-6 relative">
-      <img src="https://i.postimg.cc/3xD76XJ0/fb64bb410297032b95ab712387c61097.jpg" 
-           alt="FREE TEXT PH Logo" 
-           class="w-20 h-20 mx-auto rounded-full border-2 border-cyan-400 shadow-lg transition-transform hover:scale-105" />
-      <svg class="w-full h-24 mt-3">
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">
-          FREE TEXT PH
-        </text>
-      </svg>
-    </header>
+        <div class="profile">
+            <div class="avatar-container">
+                <img src="https://i.imgur.com/Z8wXRVS.jpeg" alt="ZarkDev's profile picture" class="avatar">
+            </div>
+            <h1 class="name">ZARK</h1>
+            <div class="about">
+                <h2>ABOUT ME:</h2>
+                <div class="typing-text" id="typing-text" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
 
-    <form id="smsForm" class="space-y-4">
-      <div>
-        <label for="number" class="block text-sm font-semibold text-gray-300 mb-1">📱 Phone Number</label>
-        <input type="text" id="number" name="number" 
-               placeholder="09xxxxxxxxx or +63xxxxxxxxxx"
-               required autocomplete="tel" inputmode="tel"
-               pattern="(\+63|0)9\d{9}"
-               class="w-full px-4 py-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
-        <small class="text-xs text-gray-400">Format: 09xxxxxxxxx or +63xxxxxxxxxx</small>
-      </div>
+    <button class="messenger-icon" id="messenger-btn" aria-label="Chat on Messenger">
+        <img src="https://i.imgur.com/GMeeEpI.png" alt="">
+    </button>
 
-      <div>
-        <label for="message" class="block text-sm font-semibold text-gray-300 mb-1">💬 Message</label>
-        <textarea id="message" name="message" rows="4" 
-                  placeholder="Type your message here..."
-                  maxlength="480" required
-                  class="w-full px-4 py-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"></textarea>
-        <small class="text-xs text-gray-400">Max 480 characters</small>
-      </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="menu" id="menu">
+        <div class="menu-header">
+            <h2 class="menu-title">Menu</h2>
+            <button class="close-btn" id="close-btn" aria-label="Close menu">×</button>
+        </div>
+        <ul class="menu-items">
+            <li><a href="https://zark-spam-share.onrender.com/" target="_blank">My SpamShare</a></li>
+            <li><a href="https://www.facebook.com/61578254222670" target="_blank">My Account</a></li>
+            <li><a href="https://zark-autobot-v2.onrender.com" target="_blank">My Autobot</a></li>
+            <li><a href="https://github.com/ZarkDev098" target="_blank">My GitHub</a></li>
+            <li><a href="https://www.facebook.com/rhonna.quitomo" target="_blank">My Girlfriend</a></li>
+        </ul>
+    </div>
 
-      <button type="submit" 
-              class="w-full py-3 font-bold rounded-lg text-white bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-fuchsia-500 hover:to-cyan-400 transition duration-300 shadow-lg">
-        Send SMS
-      </button>
-    </form>
-
-    <section class="mt-6 bg-gray-900/40 border border-gray-700 rounded-lg p-4 text-sm text-gray-300 animate-fadeIn">
-      <h2 class="text-cyan-400 font-bold mb-2">📌 Tips & Notes</h2>
-      <ul class="list-disc list-inside space-y-1">
-        <li>Use correct format: <code>09xxxxxxxxx</code> or <code>+63xxxxxxxxxx</code>.</li>
-        <li>Message length limit: <strong>480 characters</strong>.</li>
-        <li>Messages may take a few seconds to deliver.</li>
-        <li>Works only within the Philippines.</li>
-        <li>A suffix <code>-freed0m</code> and credits are auto-added to your message.</li>
-      </ul>
-    </section>
-
-    <p class="mt-5 text-center text-gray-500 text-xs">
-      © 2025 FREE TEXT PH • Developed by Zark DePH    </p>
-  </main>
-
-  <script>
-    const form = document.getElementById("smsForm");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const number = document.getElementById("number").value.trim();
-      const message = document.getElementById("message").value.trim();
-
-      if (!number || !message) {
-        Swal.fire("Error", "Please fill in all fields", "error");
-        return;
-      }
-
-      Swal.fire({
-        title: "Sending...",
-        text: "Please wait while we send your SMS",
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
+    <script>
+        function simulateLoading() {
+            const progressBar = document.getElementById('progress-bar');
+            const percentage = document.getElementById('loading-percentage');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = `${progress}%`;
+                percentage.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(showContent, 300);
+                }
+            }, 70);
         }
-      });
 
-      try {
-        const res = await fetch("/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ number, message })
+        function showContent() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.pointerEvents = 'none';
+            loadingScreen.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                document.getElementById('messenger-btn').style.display = 'flex';
+                document.getElementById('menu').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+                startTypingEffect();
+                
+                // Try to autoplay music with error handling
+                const bgMusic = document.getElementById('background-music');
+                const playPromise = bgMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay was prevented:", error);
+                    });
+                }
+            }, 500);
+        }
+
+        const textElement = document.getElementById('typing-text');
+        const texts = [
+            "WELCOME TO MY PERSONAL PORTFOLIO🍭❤️",
+            "MY NAME IS ZARK I'M BEGGINER",
+            "MY REAL NAME IS NATHANIEL VICTORIA",
+            "COLLEGE STUDENT 2025",
+            "BDAY MAY 15 2008",
+            "LIVE IN TARLAC CITY PHILIPPINES",
+            "NICE TO MEET YOU💞❤️!!",
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        let pauseBetweenTexts = 2000;
+
+        function startTypingEffect() {
+            type();
+        }
+
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                textElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingSpeed = pauseBetweenTexts;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingSpeed = 500;
+            }
+
+            setTimeout(type, typingSpeed);
+        }
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const menu = document.getElementById('menu');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        const messengerBtn = document.getElementById('messenger-btn');
+        
+        function openMessenger() {
+            window.open('https://m.me/61578254222670', '_blank', 'noopener,noreferrer');
+        }
+        
+        messengerBtn.addEventListener('click', openMessenger);
+        
+        messengerBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            openMessenger();
         });
-        const data = await res.json();
 
-        Swal.close();
+        messengerBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                openMessenger();
+            }
+        });
 
-        if (data.success) {
-          Swal.fire({
-            icon: "success",
-            title: "✅ Sent!",
-            text: data.message,
-            confirmButtonColor: "#06b6d4"
-          });
-          form.reset();
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "❌ Failed",
-            text: data.error || "Unknown error occurred",
-            confirmButtonColor: "#ef4444"
-          });
-        }
-      } catch (err) {
-        Swal.close();
-        Swal.fire("Error", "Server error occurred", "error");
-      }
-    });
-  </script>
+        document.addEventListener('keyup', function(e) {
+            if (e.key === 'Tab') {
+                document.querySelector(':focus').classList.add('keyboard-focus');
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.keyboard-focus').forEach(el => {
+                el.classList.remove('keyboard-focus');
+            });
+        });
+
+        window.addEventListener('load', () => {
+            setTimeout(simulateLoading, 500);
+        });
+    </script>
 </body>
 </html>
